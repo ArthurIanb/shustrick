@@ -1,6 +1,9 @@
 {% extends "articles/base.html" %}
 
 {% block content %}
-    <h2>index page</h2>
-    <p>Theres should be some articles about my cat</p>
+    <h1>Index</h1>
+    {% for obj in objects %}
+        <a href={{ obj.get_absolute_url }}>{{ obj.title }}</a>
+        <br/>
+    {% endfor %}
 {% endblock content %}
