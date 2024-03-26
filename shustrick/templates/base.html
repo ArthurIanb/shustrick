@@ -11,6 +11,9 @@
 
     <body>
         <h1>Shustrick!</h1>
+        {% if user.is_authenticated %}
+            <p>Hello {{ user.username }}</p>
+        {% endif %}
         <a href={% url "articles:index" %}>Home(KOD)</a>
         <br/>
         <a href={% url "articles:create" %}>Create Article</a>
