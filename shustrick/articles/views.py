@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpRequest, Http404
 from django.urls import reverse_lazy
 from .models import Article
 from .forms import ArticleForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -21,7 +22,7 @@ def detail(request, pk):
     return render(request, "articles/detail.html", context)
 
 
-
+@login_required(login_url=reverse_lazy("users:login"))
 def create(request: HttpRequest):
     if request.method == 'POST':
         form = ArticleForm(request.POST)

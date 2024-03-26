@@ -1,34 +1,39 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from .forms import UserLoginForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView
+from .forms import UserRegisterForm
 
 
-def login_user(request):
-    if request.method == 'POST':
-        form = UserLoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request, username=cd['username'], password=cd['password'])
-            if user and user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse("articles:index"))
-                
-    else:
-        form = UserLoginForm()
-    context = {
-        'title': 'login page',
-        'form': form,
+class UserLogin(LoginView):
+    form_class = UserLoginForm
+    template_name = 'users/login.html'
+    extra_context = {
+        'title': 'Login',
     }
-    return render(request, 'users/login.html', context)
-        
     
 def logout_user(request):
     if request.user.is_authenticated:
         logout(request)
-    return HttpResponseRedirect(reverse("articles:index"))
+    return HttpResponseRedirect(reverse_lazy("articles:index"))
 
     
 def register(request):
-    return HttpResponse("register")    
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data["password"])
+            user.save()
+            return HttpResponseRedirect(reverse_lazy("users:login"))
+    
+    else:
+        form = UserRegisterForm()
+    context = {
+        'title': 'Registration',
+        'form': form,
+    }
+    
+    return render(request, 'users/register.html', context)
