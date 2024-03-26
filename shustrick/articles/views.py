@@ -27,7 +27,9 @@ def create(request: HttpRequest):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
-            form.save()
+            article = form.save(commit=False)
+            article.creator = request.user
+            article.save()
             return HttpResponseRedirect(reverse_lazy('articles:index'))
         raise Http404("error")
     context = {

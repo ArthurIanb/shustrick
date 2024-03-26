@@ -5,6 +5,7 @@ from .forms import UserLoginForm
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 
 class UserLogin(LoginView):
@@ -14,9 +15,9 @@ class UserLogin(LoginView):
         'title': 'Login',
     }
     
+@login_required
 def logout_user(request):
-    if request.user.is_authenticated:
-        logout(request)
+    logout(request)
     return HttpResponseRedirect(reverse_lazy("articles:index"))
 
     
@@ -37,3 +38,16 @@ def register(request):
     }
     
     return render(request, 'users/register.html', context)
+
+
+@login_required
+def detail(request, pk):
+    if request.user.pk != pk:
+        return HttpResponse("You have no permissions for this page")
+    
+    articles = request.user.article_set.all()
+    context = {
+        'title': request.user.username,
+        'articles': articles,
+    }
+    return render(request, 'users/detail.html', context)

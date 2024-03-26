@@ -5,5 +5,8 @@
     {% for obj in objects %}
         <a href={{ obj.get_absolute_url }}>{{ obj.title }}</a>
         <br/>
+        <a href='#'>{{ obj.creator }}</a>
+        <br/>
+        <br/>
     {% endfor %}
 {% endblock content %}

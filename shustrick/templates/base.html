@@ -10,20 +10,22 @@
     </head>
 
     <body>
-        <h1>Shustrick!</h1>
-        {% if user.is_authenticated %}
-                <p>Hello {{ user.username }}</p>
-                <a href={% url "users:logout" %}>Logout</a>
-            {% else %}
-                <div>
-                    <a href={% url "users:login" %}>Login</a> | 
-                    <a href={% url "users:register" %}>Register</a>
-                </div>
-        {% endif %}
-        <br/>
-        <a href={% url "articles:index" %}>Home(KOD)</a>
-        <br/>
-        <a href={% url "articles:create" %}>Create Article</a>
+        <div>
+            <h1>Shustrick!</h1>
+            {% if user.is_authenticated %}
+                    <p>Hello <a href={% url "users:detail" user.pk %}>{{ user.username }}</a></p>
+                    <a href={% url "users:logout" %}>Logout</a>
+                {% else %}
+                    <div>
+                        <a href={% url "users:login" %}>Login</a> | 
+                        <a href={% url "users:register" %}>Register</a>
+                    </div>
+            {% endif %}
+            <br/>
+            <a href={% url "articles:index" %}>Home(KOD)</a>
+            <br/>
+            <a href={% url "articles:create" %}>Create Article</a>
+        </div>
         {% block content %}{% endblock %}
     </body>
 
