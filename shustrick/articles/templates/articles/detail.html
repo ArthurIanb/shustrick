@@ -3,4 +3,16 @@
 {% block content %}
     <h2>{{ object.title }}</h2>
     <p>{{ object.content }}</p>
+    <p>Comments({{ comments|length }})
+        <form method="POST" action={% url "articles:add_comment" %}>
+            {% csrf_token %}
+            <input type="hidden" name="article_pk" value="{{ object.pk }}"/>
+            <input name="data"/>
+            <input type="submit"/>
+        </form>
+        {% for comment in comments %}
+            <p>{{ comment.sender }}</p>
+            <p>{{ comment.data }}</p>
+            <br/>
+        {% endfor %}
 {% endblock content %}
