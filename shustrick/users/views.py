@@ -6,7 +6,9 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class UserLogin(LoginView):
     form_class = UserLoginForm
@@ -40,14 +42,19 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 
-@login_required
+@login_required(login_url=reverse_lazy("users:login"))
 def detail(request, pk):
-    if request.user.pk != pk:
-        return HttpResponse("You have no permissions for this page")
+    if request.user.pk == pk:
+        full_page = True
+    else:
+        full_page = False
     
-    articles = request.user.article_set.all()
+    user = User.objects.get(pk=pk)
+    articles = user.article_set.all()
     context = {
         'title': request.user.username,
         'articles': articles,
+        'target_user': user,
+        'full_page': full_page
     }
     return render(request, 'users/detail.html', context)

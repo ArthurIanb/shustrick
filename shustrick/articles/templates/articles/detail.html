@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load users_extras %}
 
 {% block content %}
+    <a href='{{ object.creator.get_absolute_url }}'>{% user_image object.creator 50 %}{{ object.creator }}</a>
     <h2>{{ object.title }}</h2>
     <p>{{ object.content }}</p>
     <p>Comments({{ comments|length }})

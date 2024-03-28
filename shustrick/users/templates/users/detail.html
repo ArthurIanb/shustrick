@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+{% load users_extras %}
 
 {% block content %}
+    <a href='{{ target_user.get_absolute_url }}'>{% user_image target_user 150 %}{{ target_user }}</a>
     {% for article in articles %}
         <p><a href={{ article.get_absolute_url }}>{{ article.title }}</a></p>
     {% endfor %}
+    {% if full_page%}
+        <p>Your secret data</p>
+    {% endif %}
 {% endblock content %}

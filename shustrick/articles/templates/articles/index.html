@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load users_extras %}
 
 {% block content %}
     <h1>Index</h1>
     {% for obj in objects %}
         <a href={{ obj.get_absolute_url }}>{{ obj.title }}</a>
         <br/>
-        <a href='#'>{{ obj.creator }}</a>
+        <a href='{{ obj.creator.get_absolute_url }}'>{% user_image obj.creator 100 %}{{ obj.creator }}</a>
         <br/>
         <br/>
 
