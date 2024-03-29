@@ -20,6 +20,7 @@ class Comment(models.Model):
     article = models.ForeignKey(to=Article, on_delete=models.CASCADE)
     sender = models.ForeignKey(to=get_user_model(), on_delete=models.CASCADE)
     data = models.TextField()
+    created = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return f"{self.sender.get_username()}: {self.data}"

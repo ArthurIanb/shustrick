@@ -1,14 +1,21 @@
-{% extends "base.html" %}
+{% extends "articles/base.html" %}
 {% load users_extras %}
 
 {% block content %}
-    <h1>Index</h1>
+    <div id="index">
+    <h1>Articles</h1>
     {% for obj in objects %}
-        <a href={{ obj.get_absolute_url }}>{{ obj.title }}</a>
-        <br/>
-        <a href='{{ obj.creator.get_absolute_url }}'>{% user_image obj.creator 100 %}{{ obj.creator }}</a>
-        <br/>
-        <br/>
-
+        <div class="article">
+            <div class="title">
+                <a href={{ obj.get_absolute_url }}>{{ obj.title }}</a>
+            </div>
+            <div class="content">
+                <p>{{ obj.content|truncatewords:30 }}</p>
+            </div>
+            <a href='{{ obj.creator.get_absolute_url }}'>
+                {% user_image obj.creator 50 %}{{ obj.creator }}
+            </a>
+        </div>
     {% endfor %}
+    </div>
 {% endblock content %}

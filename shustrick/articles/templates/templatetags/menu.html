@@ -1,0 +1,7 @@
+{% for title, ref in menu.items %}
+    {% if ref == choosen_ref %}
+        <a href="{% url ref %}" class="active">{{ title }}</a>
+    {% else %}
+        <a href="{% url ref %}">{{ title }}</a>
+    {% endif %}
+{% endfor %}

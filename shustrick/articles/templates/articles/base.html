@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
+{% load articles_extras %}
 
 <html>
     <head>
@@ -7,24 +9,22 @@
         {% else %}
             <title>No title</title>
         {% endif %}
+        <link rel="stylesheet" href={% static "articles/css/style.css" %} type="text/css"/>
     </head>
 
     <body>
-        <div>
-            <h1>Shustrick!</h1>
+        <div class="header">
+            <b>Shustrick</b>
+            <div class="user">
             {% if user.is_authenticated %}
-                    <p>Hello <a href={% url "users:detail" user.pk %}>{{ user.username }}</a></p>
+                    <a href={% url "users:detail" user.pk %}>Profile</a>
                     <a href={% url "users:logout" %}>Logout</a>
                 {% else %}
-                    <div>
                         <a href={% url "users:login" %}>Login</a> | 
                         <a href={% url "users:register" %}>Register</a>
-                    </div>
             {% endif %}
-            <br/>
-            <a href={% url "articles:index" %}>Home(KOD)</a>
-            <br/>
-            <a href={% url "articles:create" %}>Create Article</a>
+            </div>
+            {% menu choosen_ref%}
         </div>
         {% block content %}{% endblock %}
     </body>

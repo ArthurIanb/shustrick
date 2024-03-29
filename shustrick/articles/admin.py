@@ -5,7 +5,8 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = 'title', 'is_published', 'creator'
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = 'sender', 'data', 'article'
+    readonly_fields = 'created', 
+    list_display = 'sender', 'data', 'article', 'created'
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Comment, CommentAdmin)

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     context = {
         'title': 'Index',
+        'choosen_ref': 'articles:index',
         'objects': Article.objects.filter(is_published=True),
     }
     return render(request, "articles/index.html", context)
@@ -19,6 +20,7 @@ def detail(request, pk):
     context = {
         'title': 'Detail',
         'object': obj,
+        'choosen_ref': 'articles:detail',
         'comments': obj.comment_set.all(),
     }
     return render(request, "articles/detail.html", context)
@@ -37,6 +39,7 @@ def create(request: HttpRequest):
     context = {
         'title': 'Create page',
         'form': ArticleForm(),
+        'choosen_ref': 'articles:create',
     }
     return render(request, "articles/create.html", context)
 

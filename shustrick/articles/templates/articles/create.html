@@ -1,12 +1,12 @@
-{% extends "base.html" %}
+{% extends "articles/base.html" %}
 
 
 {% block content %}
-
-    <form method="POST" action={% url "articles:create" %}>
-        {% csrf_token %}
-        <p>{{ form.as_p }}</p>
-        <input type="submit" value="Create"/>
-    </form>
-
+    <div class="creation_form">
+        <form method="POST" action={% url "articles:create" %}>
+            {% csrf_token %}
+            <p>{{ form.as_p }}</p>
+            <input class="submit" type="submit" value="Create"/>
+        </form>
+    </div>
 {% endblock content %}
