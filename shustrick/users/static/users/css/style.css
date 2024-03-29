@@ -1,11 +1,16 @@
-*{
-    background: #e8ffb6;
-
+body{
+    background-color: antiquewhite;
+    font-family: "Gill Sans", sans-serif;
+    text-align: center;
 }
 
-header {
-    padding: 30px;
-    text-align: center;
-    color: white;
-    font-size: 30px;
- }
+.header {
+    overflow: hidden;
+    padding: 20px 10px;
+}
+
+.header a{
+    text-decoration: none;
+    margin: 30px;
+    font-size: 25px;
+}

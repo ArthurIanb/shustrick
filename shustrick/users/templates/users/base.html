@@ -12,22 +12,16 @@
     </head>
 
     <body>
-        <header>
-            <h1>Shustrick!</h1>
+        <div class="header">
+            <a href="{% url "articles:index" %}">Home</a>
             {% if user.is_authenticated %}
-                    <p>Hello <a href={% url "users:detail" user.pk %}>{{ user.username }}</a></p>
                     <a href={% url "users:logout" %}>Logout</a>
                 {% else %}
-                    <div>
-                        <a href={% url "users:login" %}>Login</a> | 
-                        <a href={% url "users:register" %}>Register</a>
-                    </div>
+                    <a href={% url "users:login" %}>Login</a>
+                    <a href={% url "users:register" %}>Register</a>    
             {% endif %}
-            <br/>
-            <a href={% url "articles:index" %}>Home(KOD)</a>
-            <br/>
-            <a href={% url "articles:create" %}>Create Article</a>
-                </header>
+            
+                </div>
         {% block content %}{% endblock %}
     </body>
 
