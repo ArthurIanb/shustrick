@@ -12,10 +12,10 @@ class UserRegisterForm(forms.ModelForm):
     username = forms.CharField(label='login', widget=forms.TextInput())
     password = forms.CharField(label='password', widget=forms.PasswordInput())
     confirm_password = forms.CharField(label='confirm password', widget=forms.PasswordInput())
-    
+    email = forms.EmailField(required=True)
     class Meta:
         model = get_user_model()
-        fields = ["username", "password", "confirm_password", "first_name", "last_name", "email"]
+        fields = ["username", "password", "confirm_password", "first_name", "last_name", "email", "image"]
         
     def clean_confirm_password(self):
         cd = self.cleaned_data

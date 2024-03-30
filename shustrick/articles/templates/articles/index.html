@@ -4,6 +4,9 @@
 {% block content %}
     <div id="index">
     <h1>Articles</h1>
+    {% if not objects%}
+        <p>There is no articles, but you can create them</p>
+    {% endif %}
     {% for obj in objects %}
         <div class="article">
             <div class="title">

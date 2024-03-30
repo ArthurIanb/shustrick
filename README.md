@@ -1,7 +1,4 @@
 # shustrick
-TODO:
-Ability 
-    to like the articles
-    respond to the comments
-Make styles for comments in detail
-Add footer
+
+This is a pet project written in python, using django
+## Приложения для создания статей

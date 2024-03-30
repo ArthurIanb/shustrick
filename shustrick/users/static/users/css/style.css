@@ -8,9 +8,20 @@ body{
     overflow: hidden;
     padding: 20px 10px;
 }
-
-.header a{
+a{
     text-decoration: none;
+}
+.header a{
     margin: 30px;
     font-size: 25px;
+}
+img{
+    border-radius: 80px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.article{
+    margin-top: 3%;
+    margin-bottom: 2%;
 }

@@ -55,3 +55,28 @@ def add_comment(request):
     comment.save()
     return HttpResponseRedirect(reverse("articles:detail", kwargs={'pk':article_pk}))
     
+
+@login_required(login_url=reverse_lazy("users:login"))
+def delete(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    if request.user == article.creator:
+        article.delete()
+        return HttpResponseRedirect(reverse_lazy("users:detail", kwargs={'pk': request.user.pk}))
+    raise Http404()
+    return
+        
+
+@login_required(login_url=reverse_lazy("users:login"))
+def set_status(request, article_pk, status):
+    article = get_object_or_404(Article, pk=article_pk)
+    if request.user == article.creator:
+        print('yo wtf')
+        print(status)
+        if status == 'public':
+            article.is_published = True
+        if status == 'hide':
+            article.is_published = False
+        article.save()
+        return HttpResponseRedirect(reverse_lazy("users:detail", kwargs={'pk': request.user.pk}))
+
+    raise Http404()

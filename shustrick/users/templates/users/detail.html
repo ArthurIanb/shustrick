@@ -2,11 +2,27 @@
 {% load users_extras %}
 
 {% block content %}
-    <a href='{{ target_user.get_absolute_url }}'>{% user_image target_user 150 %}{{ target_user }}</a>
-    {% for article in articles %}
-        <p><a href={{ article.get_absolute_url }}>{{ article.title }}</a></p>
-    {% endfor %}
+    <a href='{{ target_user.get_absolute_url }}'>
+        {% if target_user.image %}
+            {% user_image target_user 150 %}
+        {% endif %}
+        {{ target_user }}
+    </a>
     {% if full_page%}
-        <p>Your secret data</p>
+        <p>Additional information about this account</p>
+        <p>Can only be seen by the account owner</p>
     {% endif %}
+    {% for article in articles %}
+        <div class="article">
+            <a href={{ article.get_absolute_url }}>{{ article.title }}</a>
+            {% if full_page%}
+                <a href="{% url "articles:delete" article.pk %}">Delete</a>
+                {% if article.is_published == False%}
+                    <a href="{% url "articles:set_status" article.pk 'public' %}">Public</a>
+                {% else %}
+                    <a href="{% url "articles:set_status" article.pk 'hide' %}">Hide</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endfor %}
 {% endblock content %}
